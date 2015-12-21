@@ -30,7 +30,7 @@ RUN { \
 # don't reverse lookup hostnames, they are usually another container
 RUN sed -Ei 's/^(bind-address|log)/#&/' /etc/mysql/my.cnf \
   && echo 'skip-host-cache\nskip-name-resolve' | awk '{ print } $1 == "[mysqld]" && c == 0 { c = 1; system("cat") }' /etc/mysql/my.cnf > /tmp/my.cnf \
-  && mv /tmp/my.cnf /etc/mysql/my.cnf
+  && mv /tmp/my.cnf /etc/mysql/my.cnf \
   && sed -i -e '/\[client]/a \default-character-set = utf8' /etc/mysql/my.cnf \
   && sed -i -e '/\[mysqld]/a \character-set-server = utf8\ncollation-server = utf8_general_ci'  /etc/mysql/my.cnf
 
